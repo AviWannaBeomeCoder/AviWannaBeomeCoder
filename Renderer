@@ -1,0 +1,96 @@
+import turtle
+import turtle as Turtle
+import math
+import sys
+
+sys.setrecursionlimit(1000000)
+
+mathematics = math
+Sprite_1 = Turtle
+LocationsXZ = []
+LocationsYZ = []
+Sprite_1.penup()
+zoom = 10
+turtle.hideturtle()
+
+
+class __main__:
+    @staticmethod
+    def render():
+        turtle.begin_fill()
+        for l in range(len(LocationsXZ)):
+            Turtle.color("#000000", LocationsXZ[l].split("/n")[2])
+            Turtle.bgcolor("#00ffff")
+            Turtle.goto(x=int(LocationsXZ[l].split("/n")[0]) * int(LocationsXZ[l].split("/n")[1]) * 7 / 10,
+                        y=int(LocationsYZ[l].split("/n")[0]) * int(LocationsYZ[l].split("/n")[1]) * 7 / 10)
+            Turtle.begin_poly()
+            Turtle.begin_fill()
+            Turtle.goto(x=int(LocationsXZ[l].split("/n")[0]) * int(LocationsXZ[l].split("/n")[1]) + int(
+                LocationsXZ[l].split("/n")[1]) * 7 / 10,
+                        y=int(LocationsYZ[l].split("/n")[0]) * int(LocationsYZ[l].split("/n")[1]) + int(
+                            LocationsXZ[l].split("/n")[1]) * 7 / 10)
+            Turtle.goto(x=int(LocationsXZ[l].split("/n")[0]) * int(LocationsXZ[l].split("/n")[1]) - int(
+                LocationsXZ[l].split("/n")[1]) * 7 / 10,
+                        y=int(LocationsYZ[l].split("/n")[0]) * int(LocationsYZ[l].split("/n")[1]) + int(
+                            LocationsXZ[l].split("/n")[1]) * 7 / 10)
+            Turtle.goto(x=int(LocationsXZ[l].split("/n")[0]) * int(LocationsXZ[l].split("/n")[1]) - int(
+                LocationsXZ[l].split("/n")[1]) * 7 / 10,
+                        y=int(LocationsYZ[l].split("/n")[0]) * int(LocationsYZ[l].split("/n")[1]) - int(
+                            LocationsXZ[l].split("/n")[1]) * 7 / 10)
+            Turtle.goto(x=int(LocationsXZ[l].split("/n")[0]) * int(LocationsXZ[l].split("/n")[1]) + int(
+                LocationsXZ[l].split("/n")[1]) * 7 / 10,
+                        y=int(LocationsYZ[l].split("/n")[0]) * int(LocationsYZ[l].split("/n")[1]) - int(
+                            LocationsXZ[l].split("/n")[1]) * 7 / 10)
+            Turtle.goto(x=int(LocationsXZ[l].split("/n")[0]) * int(LocationsXZ[l].split("/n")[1]) + int(
+                LocationsXZ[l].split("/n")[1]) * 7 / 10,
+                        y=int(LocationsYZ[l].split("/n")[0]) * int(LocationsYZ[l].split("/n")[1]) + int(
+                            LocationsXZ[l].split("/n")[1]) * 7 / 10)
+            Turtle.end_fill()
+            Turtle.end_poly()
+        Turtle.end_fill()
+
+    @staticmethod
+    def define_object(maxX: int, maxY: int, maxZ: int, minZ: int, ignore_Error: bool,
+                      fillColor: str or tuple or list, minX: int, minY: int, positionX, positionY, positionZ):
+        """you must set ignore Error to false for better results which requires minZ to be less than 0 , positionX, ...Y less than 10"""
+        max_to_minX = 0
+        max_to_minY = 0
+        max_to_minZ = 0
+        if minZ >= 0 & ignore_Error is False & positionX >= 9 & positionY >= 9:
+            raise ValueError(
+                "Asked for an negative integer in minZ you provided a positive or gave position x or y less than 0")
+        for k in range(maxZ - minZ):
+            for j in range(maxY - minY):
+                for i in range(maxX - minX):
+                    LocationsXZ.append(
+                        str(max_to_minX + positionX) + "/n" + str(max_to_minZ + positionZ) + "/n" + fillColor)
+                    LocationsYZ.append(str(max_to_minY + positionY) + "/n" + str(max_to_minZ + positionZ))
+                    max_to_minX += 1
+                max_to_minX -= max_to_minX
+                max_to_minY += 1
+            max_to_minY -= max_to_minY
+            max_to_minZ += 1
+        max_to_minZ -= max_to_minZ
+
+    @staticmethod
+    def delete_object(index):
+        LocationsXZ.__delitem__(index)
+        LocationsYZ.__delitem__(index)
+
+    class object:
+        @staticmethod
+        def move(x, y, z, index):
+            LocationsXZ.append(str(LocationsXZ[index].split("/n")[0] + x) + "/n" + str(LocationsXZ[index].split("/n")[1] + z) + "/n" + LocationsXZ[index].split("/n")[2])
+            LocationsYZ.append(str(LocationsYZ[index].split("/n")[0] + y) + "/n" + str(LocationsYZ[index].split("/n")[1] + z))
+            __main__.delete_object(index=index)
+
+        @staticmethod
+        def turn_around(x_axis, y_axis):
+            for n in range(LocationsXZ.__len__()):
+                __main__.object.move(x_axis/100, y_axis/100, 0, n)
+
+
+
+__main__.render()
+
+Sprite_1.mainloop()
